@@ -1,18 +1,13 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'my-volume-controller',
+  selector: 'my-volume-slider',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [`
-    .range {
-      width: 100%;
-    }
-  `],
   template: `
-    <input type="range" min="0" max="100" value="100" class="range" #range (change)="onChangeVolume(range.value)" />
+    <input type="range" min="0" max="100" value="100" #range (change)="onChangeVolume(range.value)" />
   `
 })
-export class VolumeControllerComponent {
+export class VolumeSliderComponent {
   @Input() video: any;
 
   private onChangeVolume(volume: number) {

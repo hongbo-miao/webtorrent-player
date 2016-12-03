@@ -4,34 +4,42 @@ import { PlayerService } from '../services/';
 @Component({
   selector: 'my-player',
   template: `
-    WebTorrent Player
+    <div class="row my-1 flex-items-xs-center">
+      <h1>WebTorrent Player</h1>
+    </div>
 
-    <div class="row my-1">
+    <div class="row my-1 flex-items-xs-center">
       <my-url
         [url]="playerService.url"
         (changeUrl)="onChangeUrl($event)">
       </my-url>
     </div>
 
-    <div class="row my-1">
+    <div class="row my-2 flex-items-xs-center">
       <my-video
         [url]="playerService.url"
         (setVideo)="onSetVideo($event)">
       </my-video>
     </div>
 
+    <div class="row my-1 flex-items-xs-center">
+      <my-progress-controller
+        [video]="playerService.video">
+      </my-progress-controller>
+    </div>
+    
     <div class="row my-1">
-      <div class="col-xs-8">
-        <my-progress-controller
+      <div class="offset-xs-2 col-xs-8">
+        <my-progress-slider
           [video]="playerService.video">
-        </my-progress-controller>
+        </my-progress-slider>
       </div>
 
-      <div class="col-xs-4">
-        <my-volume-controller
-          [video]="playerService.video">
-        </my-volume-controller>
-      </div>
+      <!--<div class="col-xs-3">-->
+        <!--<my-volume-slider-->
+          <!--[video]="playerService.video">-->
+        <!--</my-volume-slider>-->
+      <!--</div>-->
     </div>
   `
 })
