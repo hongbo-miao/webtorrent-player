@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PlayerService } from '../services/';
 
 @Component({
@@ -31,7 +31,9 @@ import { PlayerService } from '../services/';
     <div class="row my-1">
       <div class="offset-xs-2 col-xs-8">
         <my-progress-slider
-          [video]="playerService.video">
+          [video]="playerService.video"
+          [progress]="playerService.progress"
+          (changeProgress)="onChangeProgress($event)">
         </my-progress-slider>
       </div>
 
@@ -43,10 +45,16 @@ import { PlayerService } from '../services/';
     </div>
   `
 })
-export class PlayerComponent {
+export class PlayerComponent implements OnInit {
   constructor(
     private playerService: PlayerService
   ) {}
+
+  ngOnInit() {
+    setInterval(() => {
+      this.playerService.changeProgress();
+    }, 1000);
+  }
 
   private onChangeUrl(url: string) {
     this.playerService.url = url;
@@ -54,5 +62,9 @@ export class PlayerComponent {
 
   private onSetVideo(video: any) {
     this.playerService.video = video;
+  }
+
+  private onChangeProgress(progress: number) {
+    this.playerService.video.currentTime = progress;
   }
 }

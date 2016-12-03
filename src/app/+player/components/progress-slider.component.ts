@@ -1,20 +1,18 @@
-import { Component, Input, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'my-progress-slider',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <input type="range" min="0" max="100" value="0" #range (change)="onChangeProgress(range.value)" />
+    <input type="range" min="0" max="1000" [value]="progress" #range (change)="onChangeProgress(range.value)" />
   `
 })
-export class ProgressSliderComponent implements OnInit {
+export class ProgressSliderComponent {
   @Input() video: any;
-
-  ngOnInit() {
-
-  }
+  @Input() progress: number;
+  @Output() changeProgress = new EventEmitter<number>();
 
   private onChangeProgress(progress: number) {
-    this.video.currentTime = progress / 100 * this.video.duration;
+    this.changeProgress.emit(progress / 1000 * this.video.duration);
   }
 }

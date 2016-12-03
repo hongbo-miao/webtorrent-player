@@ -36,11 +36,8 @@ export class VideoComponent implements OnChanges, AfterViewInit {
 
   private loadVideo() {
     const client = new WebTorrent();
-    console.log('client', client);
 
     client.add(this.url, torrent => {
-      console.log('torrent.files', torrent.files);
-
       torrent.files[0].renderTo(this.video);
     });
   }
