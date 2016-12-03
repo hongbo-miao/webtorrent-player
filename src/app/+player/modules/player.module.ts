@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import {
   VideoComponent,
   ControllerComponent,
-  // HangUpComponent,
+  UrlComponent,
 
   PlayerComponent
 } from '../components/';
@@ -20,7 +20,7 @@ import { PlayerRoutingModule } from './';
   declarations: [
     VideoComponent,
     ControllerComponent,
-    // HangUpComponent,
+    UrlComponent,
 
     PlayerComponent
   ],
