@@ -5,23 +5,34 @@ import { PlayerService } from '../services/';
   selector: 'my-player',
   template: `
     WebTorrent Player
-    <my-url
-      [url]="playerService.url"
-      (changeUrl)="onChangeUrl($event)">
-    </my-url>
-    
-    <div class="my-1"></div>
-    
-    <my-video
-      [url]="playerService.url"
-      (setVideo)="onSetVideo($event)">
-    </my-video>
-    
-    <div class="my-1"></div>
-    
-    <my-controller
-      [video]="playerService.video">
-    </my-controller>
+
+    <div class="row my-1">
+      <my-url
+        [url]="playerService.url"
+        (changeUrl)="onChangeUrl($event)">
+      </my-url>
+    </div>
+
+    <div class="row my-1">
+      <my-video
+        [url]="playerService.url"
+        (setVideo)="onSetVideo($event)">
+      </my-video>
+    </div>
+
+    <div class="row my-1">
+      <div class="col-xs-8">
+        <my-progress-controller
+          [video]="playerService.video">
+        </my-progress-controller>
+      </div>
+
+      <div class="col-xs-4">
+        <my-volume-controller
+          [video]="playerService.video">
+        </my-volume-controller>
+      </div>
+    </div>
   `
 })
 export class PlayerComponent {

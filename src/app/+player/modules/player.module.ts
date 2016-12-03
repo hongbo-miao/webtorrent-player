@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 
 import {
-  VideoComponent,
-  ControllerComponent,
+  ProgressControllerComponent,
   UrlComponent,
+  VideoComponent,
+  VolumeControllerComponent,
 
   PlayerComponent
 } from '../components/';
@@ -18,9 +19,10 @@ import { PlayerRoutingModule } from './';
     PlayerRoutingModule
   ],
   declarations: [
-    VideoComponent,
-    ControllerComponent,
+    ProgressControllerComponent,
     UrlComponent,
+    VideoComponent,
+    VolumeControllerComponent,
 
     PlayerComponent
   ],
