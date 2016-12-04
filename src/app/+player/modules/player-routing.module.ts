@@ -6,7 +6,7 @@ import { PlayerComponent } from '../components/';
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: 'player', component: PlayerComponent }
+      { path: '', component: PlayerComponent }
     ])
   ],
   exports: [

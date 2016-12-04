@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <form [formGroup]="urlForm" (ngSubmit)="onChangeUrl()">
-      <input formControlName="url" class="form-control form-control-sm" placeholder="magnet or torrent url"/>
+      <input formControlName="url" class="form-control" placeholder="magnet or torrent url"/>
     </form>
   `
 })
