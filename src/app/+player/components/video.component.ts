@@ -1,4 +1,4 @@
-import { Component, OnChanges, SimpleChange, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'my-video',
@@ -43,14 +43,6 @@ export class VideoComponent implements AfterViewInit {
 
   video: any;
   isHover: boolean = false;
-
-  // ngOnChanges(changes: { [propName: string]: SimpleChange }) {
-  //   if (changes['url'] && changes['url'].previousValue !== changes['url'].currentValue) {
-  //     if (!this.url) return;
-  //
-  //     this.loadVideo();
-  //   }
-  // }
 
   ngAfterViewInit() {
     this.video = this.videoEl.nativeElement;

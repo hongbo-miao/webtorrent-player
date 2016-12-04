@@ -13,17 +13,14 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
     }
   `],
   template: `
-    <a class="icon-wrapper"
-       (click)="onBackward()">
+    <a class="icon-wrapper" (click)="onBackward()">
       <img class="icon fa-lg fa-fw" src="assets/backward.svg">
     </a>
-    <a class="icon-wrapper"
-       (click)="onPlayPause()">
-      <img *ngIf="showPlay" class="icon fa-2x fa-fw" src="assets/play.svg">
-      <img *ngIf="!showPlay" class="icon fa-2x fa-fw" src="assets/pause.svg">
+    <a class="icon-wrapper" (click)="onPlayPause()">
+      <img [hidden]="!showPlay" class="icon fa-2x fa-fw" src="assets/play.svg">
+      <img [hidden]="showPlay" class="icon fa-2x fa-fw" src="assets/pause.svg">
     </a>
-    <a class="icon-wrapper"
-       (click)="onForward()">
+    <a class="icon-wrapper" (click)="onForward()">
       <img class="icon fa-lg fa-fw" src="assets/forward.svg">
     </a>
   `
