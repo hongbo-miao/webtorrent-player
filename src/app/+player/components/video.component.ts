@@ -1,5 +1,4 @@
 import { Component, OnChanges, SimpleChange, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import * as WebTorrent from 'webtorrent';
 
 @Component({
   selector: 'my-video',
@@ -36,7 +35,7 @@ import * as WebTorrent from 'webtorrent';
     </div>
   `
 })
-export class VideoComponent implements OnChanges, AfterViewInit {
+export class VideoComponent implements AfterViewInit {
   @Input() url: string;
   @Output() setVideo = new EventEmitter<any>();
 
@@ -45,25 +44,17 @@ export class VideoComponent implements OnChanges, AfterViewInit {
   video: any;
   isHover: boolean = false;
 
-  ngOnChanges(changes: { [propName: string]: SimpleChange }) {
-    if (changes['url'] && changes['url'].previousValue !== changes['url'].currentValue) {
-      if (!this.url) return;
-
-      this.loadVideo();
-    }
-  }
+  // ngOnChanges(changes: { [propName: string]: SimpleChange }) {
+  //   if (changes['url'] && changes['url'].previousValue !== changes['url'].currentValue) {
+  //     if (!this.url) return;
+  //
+  //     this.loadVideo();
+  //   }
+  // }
 
   ngAfterViewInit() {
     this.video = this.videoEl.nativeElement;
     this.setVideo.emit(this.video);
-  }
-
-  private loadVideo() {
-    const client = new WebTorrent();
-
-    client.add(this.url, torrent => {
-      torrent.files[0].renderTo(this.video);
-    });
   }
 
   private onMouseOver() {
