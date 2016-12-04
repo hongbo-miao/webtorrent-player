@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import {
+  FullScreenComponent,
   ProgressControllerComponent,
   ProgressSliderComponent,
   UrlComponent,
@@ -20,6 +21,7 @@ import { PlayerRoutingModule } from './';
     PlayerRoutingModule
   ],
   declarations: [
+    FullScreenComponent,
     ProgressControllerComponent,
     ProgressSliderComponent,
     UrlComponent,

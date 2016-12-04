@@ -5,12 +5,36 @@ import * as WebTorrent from 'webtorrent';
   selector: 'my-video',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`
+    .wrapper {
+     position: relative;
+    }
+    
     video {
       width: 100%;
     }
+    
+    .full-screen {
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      right: 3rem;
+      background-color: #000;
+      opacity: 0.3;
+      padding: .2rem 1rem .5rem 1rem;
+      margin: 0;
+      border-radius: 0 0 .2rem .2rem;
+    }
   `],
   template: `
-    <video #video></video>
+    <div class="wrapper" (mouseover)="onMouseOver()" (mouseleave)="onMouseLeave()">
+      <video #video></video>
+
+      <div class="full-screen" [hidden]="!isHover">
+        <my-full-screen
+          [video]="video">
+        </my-full-screen>
+      </div>
+    </div>
   `
 })
 export class VideoComponent implements OnChanges, AfterViewInit {
@@ -20,6 +44,7 @@ export class VideoComponent implements OnChanges, AfterViewInit {
   @ViewChild('video') private videoEl: ElementRef;
 
   video: any;
+  isHover: boolean = false;
 
   ngOnChanges(changes: { [propName: string]: SimpleChange }) {
     if (changes['url'] && changes['url'].previousValue !== changes['url'].currentValue) {
@@ -40,5 +65,13 @@ export class VideoComponent implements OnChanges, AfterViewInit {
     client.add(this.url, torrent => {
       torrent.files[0].renderTo(this.video);
     });
+  }
+
+  private onMouseOver() {
+    this.isHover = true;
+  }
+
+  private onMouseLeave() {
+    this.isHover = false;
   }
 }

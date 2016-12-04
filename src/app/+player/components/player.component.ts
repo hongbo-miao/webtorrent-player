@@ -14,7 +14,7 @@ import { PlayerService } from '../services/';
         (changeUrl)="onChangeUrl($event)">
       </my-url>
     </div>
-
+    
     <div class="row my-2 flex-items-xs-center">
       <my-video
         [url]="playerService.url"
