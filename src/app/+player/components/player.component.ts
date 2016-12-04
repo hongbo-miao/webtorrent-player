@@ -28,7 +28,7 @@ import { PlayerService } from '../services/';
         [isPaused]="(playerModel$ | async)?.isPaused"
         (togglePause)="onTogglePause($event)"
         (setVideo)="onSetVideo($event)"
-        (enterFullScreen)="onEnterFullScreen()">
+        (toggleFullScreen)="onToggleFullScreen()">
       </wtp-video>
     </div>
 
@@ -70,7 +70,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
     this.playerModel$ = this.store.select<PlayerState>('player');
 
     this.subsPauser = this.pauser
-      .switchMap(paused => paused ? Observable.never() : Observable.interval(1000))
+      .switchMap(paused => paused ? Observable.never() : Observable.interval(10000))
       .subscribe(() => {
         this.store.dispatch({ type: PlayerActions.PLAYER_UPDATE_PROGRESS })
       });
@@ -109,7 +109,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
     this.store.dispatch({ type: PlayerActions.PLAYER_DRIFT, payload: seconds });
   }
 
-  private onEnterFullScreen() {
-    this.store.dispatch({ type: PlayerActions.PLAYER_ENTER_FULL_SCREEN });
+  private onToggleFullScreen() {
+    this.store.dispatch({ type: PlayerActions.PLAYER_TOGGLE_FULL_SCREEN });
   }
 }

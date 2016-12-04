@@ -29,7 +29,7 @@ import { Component, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEm
 
       <div class="full-screen" [hidden]="!isHover">
         <wtp-full-screen
-          (enterFullScreen)="onEnterFullScreen()">
+          (toggleFullScreen)="onToggleFullScreen()">
         </wtp-full-screen>
       </div>
     </div>
@@ -39,7 +39,7 @@ export class VideoComponent implements AfterViewInit {
   @Input() isPaused: boolean;
   @Output() togglePause = new EventEmitter<boolean>();
   @Output() setVideo = new EventEmitter<any>();
-  @Output() enterFullScreen = new EventEmitter<void>();
+  @Output() toggleFullScreen = new EventEmitter<void>();
 
   @ViewChild('video') private videoEl: ElementRef;
 
@@ -63,7 +63,7 @@ export class VideoComponent implements AfterViewInit {
     this.togglePause.emit(!this.isPaused);
   }
 
-  private onEnterFullScreen() {
-    this.enterFullScreen.emit();
+  private onToggleFullScreen() {
+    this.toggleFullScreen.emit();
   }
 }

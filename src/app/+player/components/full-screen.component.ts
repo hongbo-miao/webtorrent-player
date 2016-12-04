@@ -1,16 +1,16 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'wtp-full-screen',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <img class="wtp-icon-sm" src="assets/icons/full-screen.svg" (click)="onEnterFullScreen()">
+    <img class="wtp-icon-sm" src="assets/icons/full-screen.svg" (click)="onToggleFullScreen()">
   `
 })
 export class FullScreenComponent {
-  @Output() enterFullScreen = new EventEmitter<void>();
+  @Output() toggleFullScreen = new EventEmitter<void>();
 
-  private onEnterFullScreen() {
-    this.enterFullScreen.emit();
+  private onToggleFullScreen() {
+    this.toggleFullScreen.emit();
   }
 }

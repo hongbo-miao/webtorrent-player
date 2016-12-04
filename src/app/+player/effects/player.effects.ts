@@ -51,8 +51,8 @@ export class PlayerEffects {
       .catch(error => Observable.of({ type: PlayerActions.PLAYER_JUMP_TO_FAIL, payload: error }))
     );
 
-  @Effect() enterFullScreen$ = this.actions$
-    .ofType(PlayerActions.PLAYER_ENTER_FULL_SCREEN)
-    .do(seconds => this.playerService.enterFullScreen())
+  @Effect() toggleFullScreen$ = this.actions$
+    .ofType(PlayerActions.PLAYER_TOGGLE_FULL_SCREEN)
+    .do(() => this.playerService.toggleFullScreen())
     .ignoreElements();
 }

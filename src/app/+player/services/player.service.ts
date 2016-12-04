@@ -42,13 +42,15 @@ export class PlayerService {
     this.video.currentTime += seconds;
   }
 
-  enterFullScreen() {
-    if (this.video.requestFullscreen) {
-      this.video.requestFullscreen();
-    } else if (this.video.mozRequestFullScreen) {
-      this.video.mozRequestFullScreen();
-    } else if (this.video.webkitRequestFullscreen) {
-      this.video.webkitRequestFullscreen();
+  toggleFullScreen(): void {
+    if (!document.fullscreen && !document.webkitIsFullScreen && !document.mozFullScreen) {
+      if (this.video.requestFullscreen) this.video.requestFullscreen();
+      else if (this.video.webkitRequestFullscreen) this.video.webkitRequestFullscreen();
+      else if (this.video.mozRequestFullScreen) this.video.mozRequestFullScreen();
+    } else {
+      if (document.exitFullscreen) document.exitFullscreen();
+      else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+      else if(document.mozCancelFullScreen) document.mozCancelFullScreen();
     }
   }
 }

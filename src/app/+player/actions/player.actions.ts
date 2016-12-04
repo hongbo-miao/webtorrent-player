@@ -6,7 +6,7 @@ export class PlayerActions {
   static PLAYER_TOGGLE_PAUSE = '[Player] Toggle Pause';
   static PLAYER_DRIFT = '[Player] Drift';
 
-  static PLAYER_ENTER_FULL_SCREEN = '[Player] Enter Full Screen';
+  static PLAYER_TOGGLE_FULL_SCREEN = '[Player] Toggle Full Screen';
 
   static PLAYER_JUMP_TO = '[Player] Jump To';
   static PLAYER_JUMP_TO_SUCCESS = '[Player] Jump To Success';
