@@ -4,15 +4,14 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
   selector: 'my-progress-slider',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <my-slider [min]="0" [max]="1000" [val]="progress" (changeVal)="onChangeVal($event)"></my-slider>
+    <my-slider [min]="0" [max]="1000" [val]="progress" (changeVal)="onJumpTo($event)"></my-slider>
   `
 })
 export class ProgressSliderComponent {
-  @Input() video: any;
   @Input() progress: number;
-  @Output() changeProgress = new EventEmitter<number>();
+  @Output() jumpTo = new EventEmitter<number>();
 
-  private onChangeVal(progress: number) {
-    this.changeProgress.emit(progress / 1000 * this.video.duration);
+  private onJumpTo(progress: number) {
+    this.jumpTo.emit(progress);
   }
 }

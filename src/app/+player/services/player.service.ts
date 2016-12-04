@@ -1,30 +1,47 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import * as WebTorrent from 'webtorrent';
 import * as _ from 'lodash';
 
 @Injectable()
 export class PlayerService {
-  url: string;
   video: any;
-  progress: number = 0;
 
-  loadVideo(url: string) {
-    this.url = url;
+  loadVideo(url: string): Observable<void> {
+    return Observable.create(observer => {
+      const client = new WebTorrent();
 
-    const client = new WebTorrent();
-
-    client.add(url, torrent => {
-      torrent.files[0].renderTo(this.video);
+      client.add(url, torrent => {
+        torrent.files[0].renderTo(this.video);
+        observer.next();
+      });
     });
   }
 
-  changeProgress() {
-    if (!this.video) return;
+  jumpTo(progress): Observable<number> {
+    this.video.currentTime = progress / 1000 * this.video.duration;
+    return Observable.of(progress);
+  }
 
-    const progress  = this.video.currentTime / this.video.duration * 1000;
+  updateProgress(): Observable<number> {
+    if (!this.video) return Observable.of(0);
 
-    if (_.isNaN(progress)) return;
+    const progress = this.video.currentTime / this.video.duration * 1000;
 
-    this.progress = progress;
+    if (_.isNaN(progress)) return Observable.of(0);
+
+    return Observable.of(progress);
+  }
+
+  play() {
+    this.video.play();
+  }
+
+  pause() {
+    this.video.pause();
+  }
+
+  drift(seconds: number) {
+    this.video.currentTime += seconds;
   }
 }

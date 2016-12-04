@@ -3,17 +3,6 @@
 
 @import "~bootstrap/scss/bootstrap";
 
-$my-blue: #00a8ff;
-$my-orange: #ea5f32;
-
-.fa {
-  transition: all .2s ease-in-out;
-}
-
-.fa:hover {
-  color: $my-blue;
-}
-
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-weight: 100;
 }
@@ -22,4 +11,3 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
 }
-

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
 
 import {
   FullScreenComponent,
@@ -11,6 +12,7 @@ import {
   PlayerComponent
 } from '../components/';
 import { PlayerService } from '../services/';
+import { PlayerEffects } from '../effects/';
 
 import { SharedModule } from '../../shared/modules/';
 import { PlayerRoutingModule } from './';
@@ -18,7 +20,10 @@ import { PlayerRoutingModule } from './';
 @NgModule({
   imports: [
     SharedModule,
-    PlayerRoutingModule
+
+    PlayerRoutingModule,
+
+    EffectsModule.run(PlayerEffects)
   ],
   declarations: [
     FullScreenComponent,
