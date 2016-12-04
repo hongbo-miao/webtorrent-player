@@ -25,11 +25,11 @@ import { Component, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEm
   `],
   template: `
     <div class="wrapper" (mouseover)="onMouseOver()" (mouseleave)="onMouseLeave()">
-      <video #video (click)="onTogglePause()"></video>
+      <video #video (click)="onTogglePause()" (dblclick)="onToggleFullScreen()"></video>
 
       <div class="full-screen" [hidden]="!isHover">
         <wtp-full-screen
-          [video]="video">
+          (enterFullScreen)="onEnterFullScreen()">
         </wtp-full-screen>
       </div>
     </div>
@@ -39,6 +39,7 @@ export class VideoComponent implements AfterViewInit {
   @Input() isPaused: boolean;
   @Output() togglePause = new EventEmitter<boolean>();
   @Output() setVideo = new EventEmitter<any>();
+  @Output() enterFullScreen = new EventEmitter<void>();
 
   @ViewChild('video') private videoEl: ElementRef;
 
@@ -50,15 +51,19 @@ export class VideoComponent implements AfterViewInit {
     this.setVideo.emit(this.video);
   }
 
-  private onTogglePause() {
-    this.togglePause.emit(!this.isPaused);
-  }
-
   private onMouseOver() {
     this.isHover = true;
   }
 
   private onMouseLeave() {
     this.isHover = false;
+  }
+
+  private onTogglePause() {
+    this.togglePause.emit(!this.isPaused);
+  }
+
+  private onEnterFullScreen() {
+    this.enterFullScreen.emit();
   }
 }

@@ -41,4 +41,14 @@ export class PlayerService {
   drift(seconds: number): void {
     this.video.currentTime += seconds;
   }
+
+  enterFullScreen() {
+    if (this.video.requestFullscreen) {
+      this.video.requestFullscreen();
+    } else if (this.video.mozRequestFullScreen) {
+      this.video.mozRequestFullScreen();
+    } else if (this.video.webkitRequestFullscreen) {
+      this.video.webkitRequestFullscreen();
+    }
+  }
 }

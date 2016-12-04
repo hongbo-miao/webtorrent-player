@@ -10,14 +10,14 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
   `],
   template: `
     <a class="icon-wrapper" (click)="onBackward()">
-      <img class="wtp-icon" src="assets/icons/backward.svg">
+      <img class="wtp-icon-md" src="assets/icons/backward.svg">
     </a>
     <a class="icon-wrapper" (click)="onTogglePause()">
       <img [hidden]="!isPaused" class="wtp-icon-lg" src="assets/icons/play.svg">
       <img [hidden]="isPaused" class="wtp-icon-lg" src="assets/icons/pause.svg">
     </a>
     <a class="icon-wrapper" (click)="onForward()">
-      <img class="wtp-icon" src="assets/icons/forward.svg">
+      <img class="wtp-icon-md" src="assets/icons/forward.svg">
     </a>
   `
 })

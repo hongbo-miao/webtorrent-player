@@ -27,7 +27,8 @@ import { PlayerService } from '../services/';
       <wtp-video
         [isPaused]="(playerModel$ | async)?.isPaused"
         (togglePause)="onTogglePause($event)"
-        (setVideo)="onSetVideo($event)">
+        (setVideo)="onSetVideo($event)"
+        (enterFullScreen)="onEnterFullScreen()">
       </wtp-video>
     </div>
 
@@ -106,5 +107,9 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   private onDrift(seconds: number) {
     this.store.dispatch({ type: PlayerActions.PLAYER_DRIFT, payload: seconds });
+  }
+
+  private onEnterFullScreen() {
+    this.store.dispatch({ type: PlayerActions.PLAYER_ENTER_FULL_SCREEN });
   }
 }
