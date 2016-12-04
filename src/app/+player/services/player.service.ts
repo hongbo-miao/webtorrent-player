@@ -33,12 +33,9 @@ export class PlayerService {
     return Observable.of(progress);
   }
 
-  play(): void {
-    this.video.play();
-  }
-
-  pause(): void {
-    this.video.pause();
+  pause(pause: boolean): void {
+    if (pause) this.video.pause();
+    else this.video.play();
   }
 
   drift(seconds: number): void {

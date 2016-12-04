@@ -27,14 +27,14 @@ export class PlayerEffects {
       .catch(error => Observable.of({ type: PlayerActions.PLAYER_UPDATE_PROGRESS_FAIL, payload: error }))
     );
 
-  @Effect() play$ = this.actions$
-    .ofType(PlayerActions.PLAYER_PLAY)
-    .do(() => this.playerService.play())
-    .ignoreElements();
+  @Effect() triggerPause$ = this.actions$
+    .ofType(PlayerActions.PLAYER_LOAD_VIDEO_SUCCESS)
+    .map(() => ({ type: PlayerActions.PLAYER_TOGGLE_PAUSE, payload: false }));
 
   @Effect() pause$ = this.actions$
-    .ofType(PlayerActions.PLAYER_PAUSE)
-    .do(() => this.playerService.pause())
+    .ofType(PlayerActions.PLAYER_TOGGLE_PAUSE)
+    .map<boolean>(toPayload)
+    .do(pause => this.playerService.pause(pause))
     .ignoreElements();
 
   @Effect() drift$ = this.actions$

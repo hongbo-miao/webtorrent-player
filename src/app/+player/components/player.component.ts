@@ -25,6 +25,8 @@ import { PlayerService } from '../services/';
     
     <div class="row my-2 flex-items-xs-center">
       <wtp-video
+        [isPaused]="(playerModel$ | async)?.isPaused"
+        (togglePause)="onTogglePause($event)"
         (setVideo)="onSetVideo($event)">
       </wtp-video>
     </div>
@@ -32,8 +34,7 @@ import { PlayerService } from '../services/';
     <div class="row flex-items-xs-center">
       <wtp-progress-controller
         [isPaused]="(playerModel$ | async)?.isPaused"
-        (play)="onPlay()"
-        (pause)="onPause()"
+        (togglePause)="onTogglePause($event)"
         (drift)="onDrift($event)">
       </wtp-progress-controller>
     </div>
@@ -98,14 +99,9 @@ export class PlayerComponent implements OnInit, OnDestroy {
     this.store.dispatch({ type: PlayerActions.PLAYER_JUMP_TO, payload: progress });
   }
 
-  private onPlay() {
-    this.store.dispatch({ type: PlayerActions.PLAYER_PLAY });
-    this.pauser.next(false);
-  }
-
-  private onPause() {
-    this.store.dispatch({ type: PlayerActions.PLAYER_PAUSE });
-    this.pauser.next(true);
+  private onTogglePause(pause: boolean) {
+    this.store.dispatch({ type: PlayerActions.PLAYER_TOGGLE_PAUSE, payload: pause });
+    this.pauser.next(pause);
   }
 
   private onDrift(seconds: number) {

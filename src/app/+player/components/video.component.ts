@@ -25,7 +25,7 @@ import { Component, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEm
   `],
   template: `
     <div class="wrapper" (mouseover)="onMouseOver()" (mouseleave)="onMouseLeave()">
-      <video #video></video>
+      <video #video (click)="onTogglePause()"></video>
 
       <div class="full-screen" [hidden]="!isHover">
         <wtp-full-screen
@@ -36,6 +36,8 @@ import { Component, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEm
   `
 })
 export class VideoComponent implements AfterViewInit {
+  @Input() isPaused: boolean;
+  @Output() togglePause = new EventEmitter<boolean>();
   @Output() setVideo = new EventEmitter<any>();
 
   @ViewChild('video') private videoEl: ElementRef;
@@ -46,6 +48,10 @@ export class VideoComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.video = this.videoEl.nativeElement;
     this.setVideo.emit(this.video);
+  }
+
+  private onTogglePause() {
+    this.togglePause.emit(!this.isPaused);
   }
 
   private onMouseOver() {

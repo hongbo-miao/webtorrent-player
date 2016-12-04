@@ -16,7 +16,7 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
     <a class="icon-wrapper" (click)="onBackward()">
       <img class="icon fa-lg fa-fw" src="assets/backward.svg">
     </a>
-    <a class="icon-wrapper" (click)="onPlayPause()">
+    <a class="icon-wrapper" (click)="onTogglePause()">
       <img [hidden]="!isPaused" class="icon fa-2x fa-fw" src="assets/play.svg">
       <img [hidden]="isPaused" class="icon fa-2x fa-fw" src="assets/pause.svg">
     </a>
@@ -27,16 +27,11 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
 })
 export class ProgressControllerComponent {
   @Input() isPaused: boolean;
-  @Output() play = new EventEmitter<void>();
-  @Output() pause = new EventEmitter<void>();
+  @Output() togglePause = new EventEmitter<boolean>();
   @Output() drift = new EventEmitter<number>();
 
-  private onPlayPause() {
-    if (this.isPaused) {
-      this.play.emit();
-    } else {
-      this.pause.emit();
-    }
+  private onTogglePause() {
+    this.togglePause.emit(!this.isPaused);
   }
 
   private onBackward() {

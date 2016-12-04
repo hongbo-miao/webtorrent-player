@@ -3,11 +3,7 @@ export class PlayerActions {
   static PLAYER_LOAD_VIDEO_SUCCESS = '[Player] Load Video Success';
   static PLAYER_LOAD_VIDEO_FAIL = '[Player] Load Video Fail';
 
-  static PLAYER_BACKWARD = '[Player] Backward';
-  static PLAYER_FORWARD = '[Player] Forward';
-
-  static PLAYER_PLAY = '[Player] Play';
-  static PLAYER_PAUSE = '[Player] Pause';
+  static PLAYER_TOGGLE_PAUSE = '[Player] Toggle Pause';
   static PLAYER_DRIFT = '[Player] Drift';
 
   static PLAYER_JUMP_TO = '[Player] Jump To';

@@ -21,21 +21,8 @@ export const playerReducer: ActionReducer<PlayerState> = (state = initialState, 
       return Object.assign({}, state, { url: action.payload });
     }
 
-    case PlayerActions.PLAYER_LOAD_VIDEO_SUCCESS:
-    case PlayerActions.PLAYER_PLAY: {
-      return Object.assign({}, state, { isPaused: false });
-    }
-
-    case PlayerActions.PLAYER_PAUSE: {
-      return Object.assign({}, state, { isPaused: true });
-    }
-
-    case PlayerActions.PLAYER_BACKWARD: {
-      return Object.assign({}, state, { currentTime: state.currentTime - action.payload });
-    }
-
-    case PlayerActions.PLAYER_FORWARD: {
-      return Object.assign({}, state, { currentTime: state.currentTime + action.payload });
+    case PlayerActions.PLAYER_TOGGLE_PAUSE: {
+      return Object.assign({}, state, { isPaused: action.payload });
     }
 
     case PlayerActions.PLAYER_JUMP_TO_SUCCESS: {
