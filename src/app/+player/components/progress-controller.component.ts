@@ -7,21 +7,17 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
     .icon-wrapper {
       margin: 1rem;
     }
-    
-    .icon {
-      vertical-align: middle;
-    }
   `],
   template: `
     <a class="icon-wrapper" (click)="onBackward()">
-      <img class="icon fa-lg fa-fw" src="assets/backward.svg">
+      <img class="wtp-icon" src="assets/icons/backward.svg">
     </a>
     <a class="icon-wrapper" (click)="onTogglePause()">
-      <img [hidden]="!isPaused" class="icon fa-2x fa-fw" src="assets/play.svg">
-      <img [hidden]="isPaused" class="icon fa-2x fa-fw" src="assets/pause.svg">
+      <img [hidden]="!isPaused" class="wtp-icon-lg" src="assets/icons/play.svg">
+      <img [hidden]="isPaused" class="wtp-icon-lg" src="assets/icons/pause.svg">
     </a>
     <a class="icon-wrapper" (click)="onForward()">
-      <img class="icon fa-lg fa-fw" src="assets/forward.svg">
+      <img class="wtp-icon" src="assets/icons/forward.svg">
     </a>
   `
 })

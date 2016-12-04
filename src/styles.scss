@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:100,300");
-@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css");
 
 @import "~bootstrap/scss/bootstrap";
 
@@ -10,4 +9,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 * {
   font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
+}
+
+.wtp-icon {
+  width: 1.8rem;
+}
+
+.wtp-icon-lg {
+  width: 2.8rem;
 }

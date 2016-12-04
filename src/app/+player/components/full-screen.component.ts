@@ -4,7 +4,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   selector: 'wtp-full-screen',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <img class="icon fa-fw" src="assets/full-screen.svg" (click)="onFullScreen()">
+    <img class="wtp-icon" src="assets/icons/full-screen.svg" (click)="onFullScreen()">
   `
 })
 export class FullScreenComponent {
