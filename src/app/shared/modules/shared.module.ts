@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { SliderComponent } from '../components/';
+
 const MODULES = [
   CommonModule,
   RouterModule,
@@ -17,7 +19,7 @@ const PIPES = [
 ];
 
 const COMPONENTS = [
-
+  SliderComponent
 ];
 
 @NgModule({
