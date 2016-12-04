@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
 
 import { State } from '../../shared/models/';
 import { PlayerActions } from '../actions/';
@@ -16,14 +18,13 @@ import { PlayerService } from '../services/';
 
     <div class="row my-1 flex-items-xs-center">
       <wtp-url
-        [url]="playerService.url"
+        [url]="(playerModel$ | async)?.url"
         (changeUrl)="onChangeUrl($event)">
       </wtp-url>
     </div>
     
     <div class="row my-2 flex-items-xs-center">
       <wtp-video
-        [url]="playerService.url"
         (setVideo)="onSetVideo($event)">
       </wtp-video>
     </div>
@@ -53,8 +54,10 @@ import { PlayerService } from '../services/';
     </div>
   `
 })
-export class PlayerComponent implements OnInit {
+export class PlayerComponent implements OnInit, OnDestroy {
   playerModel$: Observable<PlayerState>;
+  pauser = new Subject();
+  subsPauser: Subscription;
 
   constructor(
     private store: Store<State>,
@@ -64,14 +67,22 @@ export class PlayerComponent implements OnInit {
   ngOnInit() {
     this.playerModel$ = this.store.select<PlayerState>('player');
 
+    this.subsPauser = this.pauser
+      .switchMap(paused => paused ? Observable.never() : Observable.interval(1000))
+      .subscribe(() => {
+        this.store.dispatch({ type: PlayerActions.PLAYER_UPDATE_PROGRESS })
+      });
+
     const url = 'https://webtorrent.io/torrents/sintel.torrent';
     // const url = 'magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d&dn=sintel.mp4&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel-1024-surround.mp4';
 
     this.store.dispatch({ type: PlayerActions.PLAYER_LOAD_VIDEO, payload: url });
+    this.pauser.next(false);
+  }
 
-    setInterval(() => {
-      this.store.dispatch({ type: PlayerActions.PLAYER_UPDATE_PROGRESS });
-    }, 1000);
+  ngOnDestroy() {
+    if (this.subsPauser) this.subsPauser.unsubscribe();
+    this.pauser.next(true);
   }
 
   private onChangeUrl(url: string) {
@@ -88,10 +99,12 @@ export class PlayerComponent implements OnInit {
 
   private onPlay() {
     this.store.dispatch({ type: PlayerActions.PLAYER_PLAY });
+    this.pauser.next(false);
   }
 
   private onPause() {
     this.store.dispatch({ type: PlayerActions.PLAYER_PAUSE });
+    this.pauser.next(true);
   }
 
   private onDrift(seconds: number) {

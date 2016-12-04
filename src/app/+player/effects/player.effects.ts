@@ -16,16 +16,8 @@ export class PlayerEffects {
     .ofType(PlayerActions.PLAYER_LOAD_VIDEO)
     .map<string>(toPayload)
     .switchMap(url => this.playerService.loadVideo(url)
-      .map(file => ({ type: PlayerActions.PLAYER_LOAD_VIDEO_SUCCESS, payload: file }))
+      .map(() => ({ type: PlayerActions.PLAYER_LOAD_VIDEO_SUCCESS }))
       .catch(error => Observable.of({ type: PlayerActions.PLAYER_LOAD_VIDEO_FAIL, payload: error }))
-    );
-
-  @Effect() jumpTo$ = this.actions$
-    .ofType(PlayerActions.PLAYER_JUMP_TO)
-    .map<number>(toPayload)
-    .switchMap(progress => this.playerService.jumpTo(progress)
-      .map(progress => ({ type: PlayerActions.PLAYER_JUMP_TO_SUCCESS, payload: progress }))
-      .catch(error => Observable.of({ type: PlayerActions.PLAYER_JUMP_TO_FAIL, payload: error }))
     );
 
   @Effect() updateProgress$ = this.actions$
@@ -50,4 +42,12 @@ export class PlayerEffects {
     .map<number>(toPayload)
     .do(seconds => this.playerService.drift(seconds))
     .ignoreElements();
+
+  @Effect() jumpTo$ = this.actions$
+    .ofType(PlayerActions.PLAYER_JUMP_TO)
+    .map<number>(toPayload)
+    .switchMap(progress => this.playerService.jumpTo(progress)
+      .map(progress => ({ type: PlayerActions.PLAYER_JUMP_TO_SUCCESS, payload: progress }))
+      .catch(error => Observable.of({ type: PlayerActions.PLAYER_JUMP_TO_FAIL, payload: error }))
+    );
 }

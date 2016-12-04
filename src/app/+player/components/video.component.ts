@@ -36,7 +36,6 @@ import { Component, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEm
   `
 })
 export class VideoComponent implements AfterViewInit {
-  @Input() url: string;
   @Output() setVideo = new EventEmitter<any>();
 
   @ViewChild('video') private videoEl: ElementRef;
