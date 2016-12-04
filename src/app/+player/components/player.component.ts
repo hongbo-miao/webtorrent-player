@@ -8,47 +8,47 @@ import { PlayerState } from '../reducers/';
 import { PlayerService } from '../services/';
 
 @Component({
-  selector: 'my-player',
+  selector: 'wtp-player',
   template: `
     <div class="row my-1 flex-items-xs-center">
       <h1>WebTorrent Player</h1>
     </div>
 
     <div class="row my-1 flex-items-xs-center">
-      <my-url
+      <wtp-url
         [url]="playerService.url"
         (changeUrl)="onChangeUrl($event)">
-      </my-url>
+      </wtp-url>
     </div>
     
     <div class="row my-2 flex-items-xs-center">
-      <my-video
+      <wtp-video
         [url]="playerService.url"
         (setVideo)="onSetVideo($event)">
-      </my-video>
+      </wtp-video>
     </div>
 
     <div class="row flex-items-xs-center">
-      <my-progress-controller
+      <wtp-progress-controller
         [isPaused]="(playerModel$ | async)?.isPaused"
         (play)="onPlay()"
         (pause)="onPause()"
         (drift)="onDrift($event)">
-      </my-progress-controller>
+      </wtp-progress-controller>
     </div>
     
     <div class="row">
       <div class="offset-xs-2 col-xs-8">
-        <my-progress-slider
+        <wtp-progress-slider
           [progress]="(playerModel$ | async)?.progress"
           (jumpTo)="onJumpTo($event)">
-        </my-progress-slider>
+        </wtp-progress-slider>
       </div>
 
       <!--<div class="col-xs-3">-->
-        <!--<my-volume-slider-->
+        <!--<wtp-volume-slider-->
           <!--[video]="playerService.video">-->
-        <!--</my-volume-slider>-->
+        <!--</wtp-volume-slider>-->
       <!--</div>-->
     </div>
   `

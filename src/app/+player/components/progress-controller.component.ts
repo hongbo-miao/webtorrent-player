@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'my-progress-controller',
+  selector: 'wtp-progress-controller',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`
     .icon-wrapper {

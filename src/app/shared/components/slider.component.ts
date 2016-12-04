@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'my-slider',
+  selector: 'wtp-slider',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`
     input[type=range] {

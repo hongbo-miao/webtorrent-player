@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'my-progress-slider',
+  selector: 'wtp-progress-slider',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <my-slider [min]="0" [max]="1000" [val]="progress" (changeVal)="onJumpTo($event)"></my-slider>
+    <wtp-slider [min]="0" [max]="1000" [val]="progress" (changeVal)="onJumpTo($event)"></wtp-slider>
   `
 })
 export class ProgressSliderComponent {

@@ -1,11 +1,11 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'my-video',
+  selector: 'wtp-video',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`
     .wrapper {
-     position: relative;
+      position: relative;
     }
     
     video {
@@ -28,9 +28,9 @@ import { Component, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEm
       <video #video></video>
 
       <div class="full-screen" [hidden]="!isHover">
-        <my-full-screen
+        <wtp-full-screen
           [video]="video">
-        </my-full-screen>
+        </wtp-full-screen>
       </div>
     </div>
   `

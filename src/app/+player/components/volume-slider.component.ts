@@ -1,10 +1,10 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'my-volume-slider',
+  selector: 'wtp-volume-slider',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <my-slider [min]="0" [max]="100" [val]="100" (changeVal)="onChangeVal($event)"></my-slider>
+    <wtp-slider [min]="0" [max]="100" [val]="100" (changeVal)="onChangeVal($event)"></wtp-slider>
   `
 })
 export class VolumeSliderComponent {

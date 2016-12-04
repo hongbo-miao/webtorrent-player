@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'my-url',
+  selector: 'wtp-url',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <form [formGroup]="urlForm" (ngSubmit)="onChangeUrl()">

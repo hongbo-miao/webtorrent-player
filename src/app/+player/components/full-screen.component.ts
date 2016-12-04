@@ -1,7 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'my-full-screen',
+  selector: 'wtp-full-screen',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <img class="icon fa-fw" src="assets/full-screen.svg" (click)="onFullScreen()">
