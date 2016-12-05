@@ -26,6 +26,9 @@ import { PlayerService } from '../services/';
     <div class="row my-2 flex-items-xs-center">
       <wtp-video
         [isPaused]="(playerModel$ | async)?.isPaused"
+        [isBuffered]="(playerModel$ | async)?.isBuffered"
+        [downloadSpeed]="(playerModel$ | async)?.downloadSpeed"
+        [uploadSpeed]="(playerModel$ | async)?.uploadSpeed"
         (togglePause)="onTogglePause($event)"
         (setVideo)="onSetVideo($event)"
         (toggleFullScreen)="onToggleFullScreen()">
@@ -58,8 +61,12 @@ import { PlayerService } from '../services/';
 })
 export class PlayerComponent implements OnInit, OnDestroy {
   playerModel$: Observable<PlayerState>;
-  pauser = new Subject();
-  subsPauser: Subscription;
+  
+  progressPauser = new Subject();
+  infoPauser = new Subject();
+
+  subsProgressPauser: Subscription;
+  subsInfoPauser: Subscription;
 
   constructor(
     private store: Store<State>,
@@ -69,31 +76,49 @@ export class PlayerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.playerModel$ = this.store.select<PlayerState>('player');
 
-    this.subsPauser = this.pauser
-      .switchMap(paused => paused ? Observable.never() : Observable.interval(10000))
+    this.subsInfoPauser = this.infoPauser
+      .switchMap(paused => paused ? Observable.never() : Observable.interval(1000))
+      .subscribe(() => {
+        this.store.dispatch({ type: PlayerActions.PLAYER_UPDATE_INFO })
+      });
+
+    this.subsProgressPauser = this.progressPauser
+      .switchMap(paused => paused ? Observable.never() : Observable.interval(1000))
       .subscribe(() => {
         this.store.dispatch({ type: PlayerActions.PLAYER_UPDATE_PROGRESS })
       });
-
-    const url = 'https://webtorrent.io/torrents/sintel.torrent';
-    // const url = 'magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d&dn=sintel.mp4&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel-1024-surround.mp4';
-
-    this.store.dispatch({ type: PlayerActions.PLAYER_LOAD_VIDEO, payload: url });
-    this.pauser.next(false);
   }
 
   ngOnDestroy() {
-    if (this.subsPauser) this.subsPauser.unsubscribe();
-    this.pauser.next(true);
+    this.infoPauser.next(true);
+    this.progressPauser.next(true);
+
+    if (this.subsInfoPauser) this.subsInfoPauser.unsubscribe();
+    if (this.subsProgressPauser) this.subsProgressPauser.unsubscribe();
   }
 
   private onChangeUrl(url: string) {
+    this.infoPauser.next(false);
+
     this.store.dispatch({ type: PlayerActions.PLAYER_LOAD_VIDEO, payload: url });
-    this.pauser.next(false);
   }
 
   private onSetVideo(video: any) {
     this.playerService.video = video;
+
+    this.playerService.video.onplaying = () => {
+      this.progressPauser.next(false);
+
+      this.store.dispatch({ type: PlayerActions.PLAYER_BUFFERED });
+    };
+
+    // load demo
+    const url = 'https://webtorrent.io/torrents/sintel.torrent';
+    // const url = 'magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d&dn=sintel.mp4&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel-1024-surround.mp4';
+
+    this.store.dispatch({ type: PlayerActions.PLAYER_LOAD_VIDEO, payload: url });
+
+    this.infoPauser.next(false);
   }
 
   private onJumpTo(progress: number) {
@@ -102,7 +127,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   private onTogglePause(pause: boolean) {
     this.store.dispatch({ type: PlayerActions.PLAYER_TOGGLE_PAUSE, payload: pause });
-    this.pauser.next(pause);
+    this.progressPauser.next(pause);
   }
 
   private onDrift(seconds: number) {

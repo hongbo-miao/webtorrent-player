@@ -48,7 +48,7 @@ import { AppRoutingModule } from './app-routing.module';
     ),
 
     RouterStoreModule.connectRouter(),
-    StoreDevtoolsModule.instrumentOnlyWithExtension()   // note that you must instrument after importing StoreModule
+    StoreDevtoolsModule.instrumentOnlyWithExtension()   // note that this must instrument after importing StoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,6 +3,8 @@ import { EffectsModule } from '@ngrx/effects';
 
 import {
   FullScreenComponent,
+  InfoComponent,
+
   ProgressControllerComponent,
   ProgressSliderComponent,
   UrlComponent,
@@ -27,6 +29,8 @@ import { PlayerRoutingModule } from './';
   ],
   declarations: [
     FullScreenComponent,
+    InfoComponent,
+
     ProgressControllerComponent,
     ProgressSliderComponent,
     UrlComponent,

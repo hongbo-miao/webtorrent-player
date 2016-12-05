@@ -3,15 +3,20 @@ import { Observable } from 'rxjs/Observable';
 import * as WebTorrent from 'webtorrent';
 import * as _ from 'lodash';
 
+import { prettyBytes } from '../../shared/lib/';
+
 @Injectable()
 export class PlayerService {
   video: any;
+  torrent: any;
 
   loadVideo(url: string): Observable<void> {
     return Observable.create(observer => {
       const client = new WebTorrent();
 
       client.add(url, torrent => {
+        this.torrent = torrent;
+
         torrent.files[0].renderTo(this.video);
         observer.next();
       });
@@ -21,6 +26,14 @@ export class PlayerService {
   jumpTo(progress): Observable<number> {
     this.video.currentTime = progress / 1000 * this.video.duration;
     return Observable.of(progress);
+  }
+
+  updateInfo(): Observable<any> {
+    if (!this.torrent || this.torrent.downloadSpeed === undefined) return Observable.empty();
+    return Observable.of({
+      downloadSpeed: prettyBytes(this.torrent.downloadSpeed) + '/s',
+      uploadSpeed: prettyBytes(this.torrent.uploadSpeed) + '/s'
+    });
   }
 
   updateProgress(): Observable<number> {

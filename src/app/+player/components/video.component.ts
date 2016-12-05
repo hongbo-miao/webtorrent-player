@@ -11,32 +11,31 @@ import { Component, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEm
     video {
       width: 100%;
     }
-    
-    .full-screen {
-      z-index: 1;
-      position: absolute;
-      top: 0;
-      right: 3rem;
-      background-color: rgba(0, 0, 0, 0.3);
-      padding: .2rem 1rem .5rem 1rem;
-      margin: 0;
-      border-radius: 0 0 .2rem .2rem;
-    }
   `],
   template: `
     <div class="wrapper" (mouseover)="onMouseOver()" (mouseleave)="onMouseLeave()">
       <video #video (click)="onTogglePause()" (dblclick)="onToggleFullScreen()"></video>
 
-      <div class="full-screen" [hidden]="!isHover">
+      <div [hidden]="!isBuffered || !isHover">
         <wtp-full-screen
           (toggleFullScreen)="onToggleFullScreen()">
         </wtp-full-screen>
+      </div>
+      
+      <div [hidden]="isBuffered && !isHover">
+        <wtp-info
+          [downloadSpeed]="downloadSpeed"
+          [uploadSpeed]="uploadSpeed">
+        </wtp-info>
       </div>
     </div>
   `
 })
 export class VideoComponent implements AfterViewInit {
   @Input() isPaused: boolean;
+  @Input() isBuffered: boolean;
+  @Input() downloadSpeed: string;
+  @Input() uploadSpeed: string;
   @Output() togglePause = new EventEmitter<boolean>();
   @Output() setVideo = new EventEmitter<any>();
   @Output() toggleFullScreen = new EventEmitter<void>();

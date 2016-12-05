@@ -20,6 +20,13 @@ export class PlayerEffects {
       .catch(error => Observable.of({ type: PlayerActions.PLAYER_LOAD_VIDEO_FAIL, payload: error }))
     );
 
+  @Effect() updateInfo$ = this.actions$
+    .ofType(PlayerActions.PLAYER_UPDATE_INFO)
+    .switchMap(() => this.playerService.updateInfo()
+      .map(({ downloadSpeed, uploadSpeed }) => ({ type: PlayerActions.PLAYER_UPDATE_INFO_SUCCESS, payload: { downloadSpeed, uploadSpeed } }))
+      .catch(error => Observable.of({ type: PlayerActions.PLAYER_UPDATE_INFO_FAIL, payload: error }))
+    );
+
   @Effect() updateProgress$ = this.actions$
     .ofType(PlayerActions.PLAYER_UPDATE_PROGRESS)
     .switchMap(() => this.playerService.updateProgress()
