@@ -43,8 +43,8 @@ import { PlayerService } from '../services/';
       </wtp-progress-controller>
     </div>
     
-    <div class="row">
-      <div class="offset-xs-2 col-xs-8">
+    <div class="row flex-items-xs-center">
+      <div class="col-xs-8">
         <wtp-progress-slider
           [progress]="(playerModel$ | async)?.progress"
           (jumpTo)="onJumpTo($event)">

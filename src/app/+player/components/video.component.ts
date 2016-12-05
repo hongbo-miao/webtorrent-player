@@ -16,13 +16,13 @@ import { Component, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEm
     <div class="wrapper" (mouseover)="onMouseOver()" (mouseleave)="onMouseLeave()">
       <video #video (click)="onTogglePause()" (dblclick)="onToggleFullScreen()"></video>
 
-      <div [hidden]="!isBuffered || !isHover">
+      <div [class.twp-hidden]="!isBuffered || !isHover">
         <wtp-full-screen
           (toggleFullScreen)="onToggleFullScreen()">
         </wtp-full-screen>
       </div>
       
-      <div [hidden]="isBuffered && !isHover">
+      <div [class.twp-hidden]="isBuffered && !isHover">
         <wtp-info
           [downloadSpeed]="downloadSpeed"
           [uploadSpeed]="uploadSpeed">
