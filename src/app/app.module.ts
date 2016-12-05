@@ -9,7 +9,6 @@ import { StoreModule, combineReducers } from '@ngrx/store';
 import { routerReducer } from '@ngrx/router-store';
 import { storeLogger } from 'ngrx-store-logger';
 import { storeFreeze } from 'ngrx-store-freeze';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 
@@ -26,7 +25,6 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     FormsModule,
     HttpModule,
-    NgbModule.forRoot(),
 
     PlayerModule,
     AppRoutingModule,
