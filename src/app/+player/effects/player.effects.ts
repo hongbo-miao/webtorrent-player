@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { PlayerActions } from '../actions/';
@@ -14,7 +15,7 @@ export class PlayerEffects {
 
   @Effect() loadVideo$ = this.actions$
     .ofType(PlayerActions.PLAYER_LOAD_VIDEO)
-    .map<string>(toPayload)
+    .map<Action, string>(toPayload)
     .switchMap(url => this.playerService.loadVideo(url)
       .map(() => ({ type: PlayerActions.PLAYER_LOAD_VIDEO_SUCCESS }))
       .catch(error => Observable.of({ type: PlayerActions.PLAYER_LOAD_VIDEO_FAIL, payload: error }))
@@ -40,19 +41,19 @@ export class PlayerEffects {
 
   @Effect() pause$ = this.actions$
     .ofType(PlayerActions.PLAYER_TOGGLE_PAUSE)
-    .map<boolean>(toPayload)
+    .map<Action, boolean>(toPayload)
     .do(pause => this.playerService.pause(pause))
     .ignoreElements();
 
   @Effect() drift$ = this.actions$
     .ofType(PlayerActions.PLAYER_DRIFT)
-    .map<number>(toPayload)
+    .map<Action, number>(toPayload)
     .do(seconds => this.playerService.drift(seconds))
     .ignoreElements();
 
   @Effect() jumpTo$ = this.actions$
     .ofType(PlayerActions.PLAYER_JUMP_TO)
-    .map<number>(toPayload)
+    .map<Action, number>(toPayload)
     .switchMap(progress => this.playerService.jumpTo(progress)
       .map(progress => ({ type: PlayerActions.PLAYER_JUMP_TO_SUCCESS, payload: progress }))
       .catch(error => Observable.of({ type: PlayerActions.PLAYER_JUMP_TO_FAIL, payload: error }))
