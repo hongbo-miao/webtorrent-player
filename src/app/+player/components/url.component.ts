@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnChanges, SimpleChange, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     </form>
   `
 })
-export class UrlComponent implements OnInit{
+export class UrlComponent implements OnChanges, OnInit{
   @Input() url: string;
   @Output() changeUrl = new EventEmitter<string>();
   
@@ -19,6 +19,16 @@ export class UrlComponent implements OnInit{
   constructor(
     private fb: FormBuilder
   ) {}
+
+  ngOnChanges(changes: { [propName: string]: SimpleChange }) {
+    if (changes['url'] && changes['url'].previousValue !== changes['url'].currentValue) {
+      if (!this.url) return;
+
+      this.urlForm.patchValue({
+        url: this.url
+      })
+    }
+  }
 
   ngOnInit() {
     this.urlForm = this.fb.group({

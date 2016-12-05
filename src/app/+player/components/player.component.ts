@@ -98,9 +98,9 @@ export class PlayerComponent implements OnInit, OnDestroy {
   }
 
   private onChangeUrl(url: string) {
-    this.infoPauser.next(false);
-
     this.store.dispatch({ type: PlayerActions.PLAYER_LOAD_VIDEO, payload: url });
+
+    this.infoPauser.next(false);
   }
 
   private onSetVideo(video: any) {
