@@ -67,6 +67,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   subsProgressPauser: Subscription;
   subsInfoPauser: Subscription;
+  subsIsPaused: Subscription;
 
   constructor(
     private store: Store<State>,
@@ -75,6 +76,14 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.playerModel$ = this.store.select<PlayerState>('player');
+
+    this.subsIsPaused = this.store
+      .select(s => s.player && s.player.isPaused)
+      .distinctUntilChanged()
+      .subscribe(isPaused => {
+        this.infoPauser.next(isPaused);
+        this.progressPauser.next(isPaused);
+      });
 
     this.subsInfoPauser = this.infoPauser
       .switchMap(paused => paused ? Observable.never() : Observable.interval(1000))
@@ -95,12 +104,13 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
     if (this.subsInfoPauser) this.subsInfoPauser.unsubscribe();
     if (this.subsProgressPauser) this.subsProgressPauser.unsubscribe();
+    if (this.subsIsPaused) this.subsIsPaused.unsubscribe();
   }
 
   private onChangeUrl(url: string) {
-    this.store.dispatch({ type: PlayerActions.PLAYER_LOAD_VIDEO, payload: url });
+    this.store.dispatch({ type: PlayerActions.PLAYER_TOGGLE_PAUSE, payload: true });
 
-    this.infoPauser.next(false);
+    this.store.dispatch({ type: PlayerActions.PLAYER_LOAD_VIDEO, payload: url });
   }
 
   private onSetVideo(video: any) {
@@ -117,8 +127,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
     // const url = 'magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d&dn=sintel.mp4&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel-1024-surround.mp4';
 
     this.store.dispatch({ type: PlayerActions.PLAYER_LOAD_VIDEO, payload: url });
-
-    this.infoPauser.next(false);
   }
 
   private onJumpTo(progress: number) {
@@ -127,7 +135,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   private onTogglePause(pause: boolean) {
     this.store.dispatch({ type: PlayerActions.PLAYER_TOGGLE_PAUSE, payload: pause });
-    this.progressPauser.next(pause);
   }
 
   private onDrift(seconds: number) {

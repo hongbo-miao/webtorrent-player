@@ -36,6 +36,15 @@ export class PlayerEffects {
     );
 
   @Effect() triggerPause$ = this.actions$
+    .ofType(PlayerActions.PLAYER_UPDATE_PROGRESS_SUCCESS)
+    .map<Action, number>(toPayload)
+    .filter(progress => progress === 1000)
+    .switchMap(() => Observable.concat([
+      { type: PlayerActions.PLAYER_TOGGLE_PAUSE, payload: true },
+      { type: PlayerActions.PLAYER_JUMP_TO, payload: 0 }
+    ]));
+
+  @Effect() triggerPlay$ = this.actions$
     .ofType(PlayerActions.PLAYER_LOAD_VIDEO_SUCCESS)
     .map(() => ({ type: PlayerActions.PLAYER_TOGGLE_PAUSE, payload: false }));
 
