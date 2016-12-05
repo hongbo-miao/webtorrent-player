@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SliderComponent } from '../components/';
+import { SpeedPipe } from '../pipes/';
 
 const MODULES = [
   CommonModule,
@@ -13,7 +14,7 @@ const MODULES = [
 ];
 
 const PIPES = [
-
+  SpeedPipe
 ];
 
 const COMPONENTS = [

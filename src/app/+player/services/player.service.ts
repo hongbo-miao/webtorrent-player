@@ -3,8 +3,6 @@ import { Observable } from 'rxjs/Observable';
 import * as WebTorrent from 'webtorrent';
 import * as _ from 'lodash';
 
-import { prettyBytes } from '../../shared/lib/';
-
 @Injectable()
 export class PlayerService {
   video: any;
@@ -31,8 +29,8 @@ export class PlayerService {
   updateInfo(): Observable<any> {
     if (!this.torrent || this.torrent.downloadSpeed === undefined) return Observable.empty();
     return Observable.of({
-      downloadSpeed: prettyBytes(this.torrent.downloadSpeed) + '/s',
-      uploadSpeed: prettyBytes(this.torrent.uploadSpeed) + '/s'
+      downloadSpeed: this.torrent.downloadSpeed,
+      uploadSpeed: this.torrent.uploadSpeed
     });
   }
 

@@ -19,12 +19,12 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   `],
   template: `
     <div class="wrapper">
-      <div>↓ {{downloadSpeed}}</div>
-      <div>↑ {{uploadSpeed}}</div>
+      <div>↓ {{downloadSpeed | speed}}</div>
+      <div>↑ {{uploadSpeed | speed}}</div>
     </div>
   `
 })
 export class InfoComponent {
-  @Input() downloadSpeed: string;
-  @Input() uploadSpeed: string;
+  @Input() downloadSpeed: number;
+  @Input() uploadSpeed: number;
 }

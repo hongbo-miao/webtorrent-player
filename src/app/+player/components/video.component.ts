@@ -35,8 +35,8 @@ import { Subject } from 'rxjs/Subject';
 export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() isPaused: boolean;
   @Input() isBuffered: boolean;
-  @Input() downloadSpeed: string;
-  @Input() uploadSpeed: string;
+  @Input() downloadSpeed: number;
+  @Input() uploadSpeed: number;
   @Output() togglePause = new EventEmitter<boolean>();
   @Output() setVideo = new EventEmitter<any>();
   @Output() toggleFullScreen = new EventEmitter<void>();

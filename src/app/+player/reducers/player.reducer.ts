@@ -7,16 +7,18 @@ export interface PlayerState {
   progress: number;
   isBuffered: boolean;
   isPaused: boolean;
+  downloadSpeed: number;
+  uploadSpeed: number;
   currentTime?: number;
-  downloadSpeed?: string;
-  uploadSpeed?: string;
 }
 
 const initialState: PlayerState = {
   url: '',
   progress: 0,
   isBuffered: false,
-  isPaused: true
+  isPaused: true,
+  downloadSpeed: 0,
+  uploadSpeed: 0
 };
 
 export const playerReducer: ActionReducer<PlayerState> = (state = initialState, action: Action) => {
