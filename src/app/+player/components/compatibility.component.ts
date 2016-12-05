@@ -4,7 +4,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'wtp-compatibility',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`
-    .wrapper {
+    .tip {
       text-align: center;
       width: 100%;
       color: #fff;
@@ -15,9 +15,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     }
   `],
   template: `
-    <div class="wrapper">
-      <h3>Please use Chrome, Firefox, Opera, or Edge</h3>
-    </div>
+    <h3 class="tip">Please use Chrome, Firefox, or Opera</h3>
   `
 })
 export class CompatibilityComponent { }

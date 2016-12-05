@@ -7,14 +7,14 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
     input[type=range] {
       -webkit-appearance: none;
       width: 100%;
-      margin: 6.6px 0;
+      margin: 6px 0;
     }
     input[type=range]:focus {
       outline: none;
     }
     input[type=range]::-webkit-slider-runnable-track {
       width: 100%;
-      height: 2.8px;
+      height: 2px;
       cursor: pointer;
       box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(13, 13, 13, 0);
       background: #ea5f32;
@@ -37,7 +37,7 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
     }
     input[type=range]::-moz-range-track {
       width: 100%;
-      height: 2.8px;
+      height: 2px;
       cursor: pointer;
       box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(13, 13, 13, 0);
       background: #ea5f32;
@@ -55,7 +55,7 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
     }
     input[type=range]::-ms-track {
       width: 100%;
-      height: 2.8px;
+      height: 2px;
       cursor: pointer;
       background: transparent;
       border-color: transparent;
@@ -80,7 +80,7 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
       border-radius: 0;
       background: #ea5f32;
       cursor: pointer;
-      height: 2.8px;
+      height: 2px;
     }
     input[type=range]:focus::-ms-fill-lower {
       background: #ea5f32;
