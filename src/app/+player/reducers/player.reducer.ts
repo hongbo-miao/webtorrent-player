@@ -3,6 +3,7 @@ import { ActionReducer, Action } from '@ngrx/store';
 import { PlayerActions } from '../actions/';
 
 export interface PlayerState {
+  isCompatible: boolean;
   url: string;
   progress: number;
   isBuffered: boolean;
@@ -13,6 +14,7 @@ export interface PlayerState {
 }
 
 const initialState: PlayerState = {
+  isCompatible: false,
   url: '',
   progress: 0,
   isBuffered: false,
@@ -23,6 +25,10 @@ const initialState: PlayerState = {
 
 export const playerReducer: ActionReducer<PlayerState> = (state = initialState, action: Action) => {
   switch (action.type) {
+    case PlayerActions.PLAYER_DETECT_COMPATIBILITY_SUCCESS: {
+      return Object.assign({}, state, { isCompatible: action.payload });
+    }
+
     case PlayerActions.PLAYER_LOAD_VIDEO: {
       return Object.assign({}, state, { url: action.payload });
     }

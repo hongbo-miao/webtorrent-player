@@ -13,6 +13,13 @@ export class PlayerEffects {
     private playerService: PlayerService
   ) {}
 
+  @Effect() detectCompatibility$ = this.actions$
+    .ofType(PlayerActions.PLAYER_DETECT_COMPATIBILITY)
+    .switchMap(() => this.playerService.detectCompatibility()
+      .map(isCompatible => ({ type: PlayerActions.PLAYER_DETECT_COMPATIBILITY_SUCCESS, payload: isCompatible }))
+      .catch(error => Observable.of({ type: PlayerActions.PLAYER_DETECT_COMPATIBILITY_FAIL, payload: error }))
+    );
+
   @Effect() loadVideo$ = this.actions$
     .ofType(PlayerActions.PLAYER_LOAD_VIDEO)
     .map<Action, string>(toPayload)

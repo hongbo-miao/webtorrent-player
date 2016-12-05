@@ -1,4 +1,8 @@
 export class PlayerActions {
+  static PLAYER_DETECT_COMPATIBILITY = '[Player] Detect Compatibility';
+  static PLAYER_DETECT_COMPATIBILITY_SUCCESS = '[Player] Detect Compatibility Success';
+  static PLAYER_DETECT_COMPATIBILITY_FAIL = '[Player] Detect Compatibility Fail';
+
   static PLAYER_LOAD_VIDEO = '[Player] Load Video';
   static PLAYER_LOAD_VIDEO_SUCCESS = '[Player] Load Video Success';
   static PLAYER_LOAD_VIDEO_FAIL = '[Player] Load Video Fail';

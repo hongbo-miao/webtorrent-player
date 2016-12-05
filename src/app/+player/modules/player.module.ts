@@ -5,6 +5,7 @@ import {
   FullScreenComponent,
   InfoComponent,
 
+  CompatibilityComponent,
   ProgressControllerComponent,
   ProgressSliderComponent,
   UrlComponent,
@@ -31,6 +32,7 @@ import { PlayerRoutingModule } from './';
     FullScreenComponent,
     InfoComponent,
 
+    CompatibilityComponent,
     ProgressControllerComponent,
     ProgressSliderComponent,
     UrlComponent,

@@ -8,6 +8,11 @@ export class PlayerService {
   video: any;
   torrent: any;
 
+  detectCompatibility(): Observable<boolean> {
+    window.RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
+    return Observable.of(!!window.RTCPeerConnection);
+  }
+
   loadVideo(url: string): Observable<void> {
     return Observable.create(observer => {
       const client = new WebTorrent();

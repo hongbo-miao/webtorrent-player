@@ -6,3 +6,8 @@ interface Document {
   mozFullScreen: any;
   mozCancelFullScreen: any;
 }
+
+interface Window {
+  webkitRTCPeerConnection: any;
+  mozRTCPeerConnection: any;
+}

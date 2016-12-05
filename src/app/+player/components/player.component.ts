@@ -24,7 +24,11 @@ import { PlayerService } from '../services/';
     </div>
     
     <div class="row my-2 flex-items-xs-center">
+      <wtp-compatibility
+        *ngIf="!(playerModel$ | async)?.isCompatible">
+      </wtp-compatibility>
       <wtp-video
+        *ngIf="(playerModel$ | async)?.isCompatible"
         [isPaused]="(playerModel$ | async)?.isPaused"
         [isBuffered]="(playerModel$ | async)?.isBuffered"
         [downloadSpeed]="(playerModel$ | async)?.downloadSpeed"
@@ -61,9 +65,11 @@ import { PlayerService } from '../services/';
 })
 export class PlayerComponent implements OnInit, OnDestroy {
   playerModel$: Observable<PlayerState>;
-  
+
+  isCompatible = false;
   progressPauser = new Subject();
 
+  subsIsCompatible: Subscription;
   subsUpdateInfo: Subscription;
   subsUpdateProgress: Subscription;
   subsIsPaused: Subscription;
@@ -76,12 +82,16 @@ export class PlayerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.playerModel$ = this.store.select<PlayerState>('player');
 
+    this.store.dispatch({ type: PlayerActions.PLAYER_DETECT_COMPATIBILITY });
+
+    // info
     this.subsUpdateInfo = Observable
       .interval(1000)
       .subscribe(() => {
         this.store.dispatch({ type: PlayerActions.PLAYER_UPDATE_INFO })
       });
 
+    // progress
     this.subsUpdateProgress = this.progressPauser
       .switchMap(paused => paused ? Observable.never() : Observable.interval(1000))
       .subscribe(() => {
@@ -91,12 +101,15 @@ export class PlayerComponent implements OnInit, OnDestroy {
     this.subsIsPaused = this.store
       .select(s => s.player && s.player.isPaused)
       .distinctUntilChanged()
-      .subscribe(isPaused => this.progressPauser.next(isPaused));
+      .subscribe(isPaused => {
+        this.progressPauser.next(isPaused)
+      });
   }
 
   ngOnDestroy() {
     this.progressPauser.next(true);
 
+    if (this.subsIsCompatible) this.subsIsCompatible.unsubscribe();
     if (this.subsUpdateInfo) this.subsUpdateInfo.unsubscribe();
     if (this.subsUpdateProgress) this.subsUpdateProgress.unsubscribe();
     if (this.subsIsPaused) this.subsIsPaused.unsubscribe();
@@ -104,7 +117,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   private onChangeUrl(url: string) {
     this.store.dispatch({ type: PlayerActions.PLAYER_TOGGLE_PAUSE, payload: true });
-
     this.store.dispatch({ type: PlayerActions.PLAYER_LOAD_VIDEO, payload: url });
   }
 
