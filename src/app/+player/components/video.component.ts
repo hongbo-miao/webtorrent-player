@@ -1,4 +1,5 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'wtp-video',
@@ -14,7 +15,7 @@ import { Component, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEm
   `],
   template: `
     <div class="wrapper" (mouseover)="onMouseOver()" (mouseleave)="onMouseLeave()">
-      <video #video (click)="onTogglePause()" (dblclick)="onToggleFullScreen()"></video>
+      <video #video (click)="clickStream.next($event)" (dblclick)="onToggleFullScreen()"></video>
 
       <div [class.twp-hidden]="!isBuffered || !isHover">
         <wtp-full-screen
@@ -31,7 +32,7 @@ import { Component, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEm
     </div>
   `
 })
-export class VideoComponent implements AfterViewInit {
+export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() isPaused: boolean;
   @Input() isBuffered: boolean;
   @Input() downloadSpeed: string;
@@ -44,10 +45,24 @@ export class VideoComponent implements AfterViewInit {
 
   video: any;
   isHover: boolean = false;
+  clickStream = new Subject();
+
+  ngOnInit() {
+    // to avoid togglePause when double click
+    this.clickStream
+      .buffer(this.clickStream.debounceTime(200))
+      .map(list => list.length)
+      .filter(x => x === 1)
+      .subscribe(() => this.togglePause.emit(!this.isPaused));
+  }
 
   ngAfterViewInit() {
     this.video = this.videoEl.nativeElement;
     this.setVideo.emit(this.video);
+  }
+
+  ngOnDestroy() {
+    if (this.clickStream) this.clickStream.unsubscribe();
   }
 
   private onMouseOver() {
@@ -56,10 +71,6 @@ export class VideoComponent implements AfterViewInit {
 
   private onMouseLeave() {
     this.isHover = false;
-  }
-
-  private onTogglePause() {
-    this.togglePause.emit(!this.isPaused);
   }
 
   private onToggleFullScreen() {

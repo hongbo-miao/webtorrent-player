@@ -102,6 +102,9 @@ export class PlayerComponent implements OnInit, OnDestroy {
     this.infoPauser.next(true);
     this.progressPauser.next(true);
 
+    if (this.infoPauser) this.infoPauser.unsubscribe();
+    if (this.progressPauser) this.progressPauser.unsubscribe();
+
     if (this.subsInfoPauser) this.subsInfoPauser.unsubscribe();
     if (this.subsProgressPauser) this.subsProgressPauser.unsubscribe();
     if (this.subsIsPaused) this.subsIsPaused.unsubscribe();

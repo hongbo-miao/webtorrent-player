@@ -6,6 +6,7 @@ import 'rxjs/add/observable/never';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
+import 'rxjs/add/operator/buffer';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/delay';
