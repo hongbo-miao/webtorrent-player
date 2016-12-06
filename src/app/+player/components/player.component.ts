@@ -69,7 +69,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
   isCompatible = false;
   progressPauser = new Subject();
 
-  subsIsCompatible: Subscription;
   subsUpdateInfo: Subscription;
   subsUpdateProgress: Subscription;
   subsIsPaused: Subscription;
@@ -82,7 +81,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.playerModel$ = this.store.select<PlayerState>('player');
 
-    this.store.dispatch({ type: PlayerActions.PLAYER_DETECT_COMPATIBILITY });
+    this.store.dispatch({ type: PlayerActions.PLAYER_CHECK_COMPATIBILITY });
 
     // info
     this.subsUpdateInfo = Observable
@@ -109,7 +108,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.progressPauser.next(true);
 
-    if (this.subsIsCompatible) this.subsIsCompatible.unsubscribe();
     if (this.subsUpdateInfo) this.subsUpdateInfo.unsubscribe();
     if (this.subsUpdateProgress) this.subsUpdateProgress.unsubscribe();
     if (this.subsIsPaused) this.subsIsPaused.unsubscribe();
@@ -130,8 +128,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
     };
 
     // load demo
-    const url = 'https://webtorrent.io/torrents/sintel.torrent';
     // const url = 'magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d&dn=sintel.mp4&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel-1024-surround.mp4';
+    const url = 'https://webtorrent.io/torrents/sintel.torrent';
 
     this.store.dispatch({ type: PlayerActions.PLAYER_LOAD_VIDEO, payload: url });
   }

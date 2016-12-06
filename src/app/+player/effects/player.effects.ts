@@ -13,11 +13,11 @@ export class PlayerEffects {
     private playerService: PlayerService
   ) {}
 
-  @Effect() detectCompatibility$ = this.actions$
-    .ofType(PlayerActions.PLAYER_DETECT_COMPATIBILITY)
-    .switchMap(() => this.playerService.detectCompatibility()
-      .map(isCompatible => ({ type: PlayerActions.PLAYER_DETECT_COMPATIBILITY_SUCCESS, payload: isCompatible }))
-      .catch(error => Observable.of({ type: PlayerActions.PLAYER_DETECT_COMPATIBILITY_FAIL, payload: error }))
+  @Effect() checkCompatibility$ = this.actions$
+    .ofType(PlayerActions.PLAYER_CHECK_COMPATIBILITY)
+    .switchMap(() => this.playerService.checkCompatibility()
+      .map(isCompatible => ({ type: PlayerActions.PLAYER_CHECK_COMPATIBILITY_SUCCESS, payload: isCompatible }))
+      .catch(error => Observable.of({ type: PlayerActions.PLAYER_CHECK_COMPATIBILITY_FAIL, payload: error }))
     );
 
   @Effect() loadVideo$ = this.actions$

@@ -25,7 +25,7 @@ const initialState: PlayerState = {
 
 export const playerReducer: ActionReducer<PlayerState> = (state = initialState, action: Action) => {
   switch (action.type) {
-    case PlayerActions.PLAYER_DETECT_COMPATIBILITY_SUCCESS: {
+    case PlayerActions.PLAYER_CHECK_COMPATIBILITY_SUCCESS: {
       return Object.assign({}, state, { isCompatible: action.payload });
     }
 

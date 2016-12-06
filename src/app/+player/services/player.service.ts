@@ -8,7 +8,7 @@ export class PlayerService {
   video: any;
   torrent: any;
 
-  detectCompatibility(): Observable<boolean> {
+  checkCompatibility(): Observable<boolean> {
     window.RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
     return Observable.of(!!window.RTCPeerConnection);
   }
