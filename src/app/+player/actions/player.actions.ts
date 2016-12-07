@@ -3,9 +3,9 @@ export class PlayerActions {
   static PLAYER_CHECK_COMPATIBILITY_SUCCESS = '[Player] Check Compatibility Success';
   static PLAYER_CHECK_COMPATIBILITY_FAIL = '[Player] Check Compatibility Fail';
 
-  static PLAYER_LOAD_VIDEO = '[Player] Load Video';
-  static PLAYER_LOAD_VIDEO_SUCCESS = '[Player] Load Video Success';
-  static PLAYER_LOAD_VIDEO_FAIL = '[Player] Load Video Fail';
+  static PLAYER_GET_VIDEO = '[Player] Get Video';
+  static PLAYER_GET_VIDEO_SUCCESS = '[Player] Get Video Success';
+  static PLAYER_GET_VIDEO_FAIL = '[Player] Get Video Fail';
 
   static PLAYER_BUFFERED = '[Player] Buffered';
 

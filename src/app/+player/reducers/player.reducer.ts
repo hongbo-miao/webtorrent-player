@@ -29,7 +29,7 @@ export const playerReducer: ActionReducer<PlayerState> = (state = initialState, 
       return Object.assign({}, state, { isCompatible: action.payload });
     }
 
-    case PlayerActions.PLAYER_LOAD_VIDEO: {
+    case PlayerActions.PLAYER_GET_VIDEO: {
       return Object.assign({}, state, { url: action.payload });
     }
 

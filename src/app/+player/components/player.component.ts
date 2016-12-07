@@ -120,7 +120,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   private onChangeUrl(url: string) {
     this.store.dispatch({ type: PlayerActions.PLAYER_TOGGLE_PAUSE, payload: true });
-    this.store.dispatch({ type: PlayerActions.PLAYER_LOAD_VIDEO, payload: url });
+    this.store.dispatch({ type: PlayerActions.PLAYER_GET_VIDEO, payload: url });
   }
 
   private onSetVideo(video: any) {
@@ -136,7 +136,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
     // const url = 'magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d&dn=sintel.mp4&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel-1024-surround.mp4';
     const url = 'https://webtorrent.io/torrents/sintel.torrent';
 
-    this.store.dispatch({ type: PlayerActions.PLAYER_LOAD_VIDEO, payload: url });
+    this.store.dispatch({ type: PlayerActions.PLAYER_GET_VIDEO, payload: url });
   }
 
   private onJumpTo(progress: number) {

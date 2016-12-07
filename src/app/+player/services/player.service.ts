@@ -14,7 +14,7 @@ export class PlayerService {
     return Observable.of(!!window.RTCPeerConnection);
   }
 
-  loadVideo(url: string): Observable<void> {
+  getVideo(url: string): Observable<void> {
     return Observable.create(observer => {
       const client = new WebTorrent();
 

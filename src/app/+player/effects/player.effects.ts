@@ -27,12 +27,12 @@ export class PlayerEffects {
       .catch(error => Observable.of({ type: PlayerActions.PLAYER_CHECK_COMPATIBILITY_FAIL, payload: error }))
     );
 
-  @Effect() loadVideo$ = this.actions$
-    .ofType(PlayerActions.PLAYER_LOAD_VIDEO)
+  @Effect() getVideo$ = this.actions$
+    .ofType(PlayerActions.PLAYER_GET_VIDEO)
     .map<Action, string>(toPayload)
-    .switchMap(url => this.playerService.loadVideo(url)
-      .map(() => ({ type: PlayerActions.PLAYER_LOAD_VIDEO_SUCCESS }))
-      .catch(error => Observable.of({ type: PlayerActions.PLAYER_LOAD_VIDEO_FAIL, payload: error }))
+    .switchMap(url => this.playerService.getVideo(url)
+      .map(() => ({ type: PlayerActions.PLAYER_GET_VIDEO_SUCCESS }))
+      .catch(error => Observable.of({ type: PlayerActions.PLAYER_GET_VIDEO_FAIL, payload: error }))
     );
 
   @Effect() updateInfo$ = this.actions$
@@ -59,7 +59,7 @@ export class PlayerEffects {
     ]));
 
   @Effect() triggerPlay$ = this.actions$
-    .ofType(PlayerActions.PLAYER_LOAD_VIDEO_SUCCESS)
+    .ofType(PlayerActions.PLAYER_GET_VIDEO_SUCCESS)
     .map(() => ({ type: PlayerActions.PLAYER_TOGGLE_PAUSE, payload: false }));
 
   @Effect() pause$ = this.actions$

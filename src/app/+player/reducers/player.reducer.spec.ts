@@ -26,8 +26,8 @@ describe('Reducer: playerReducer', () => {
 
   it('should add torrentUrl', () => {
     const state = Object.assign({}, mockState);
-    const actual = playerReducer(state, { type: PlayerActions.PLAYER_LOAD_VIDEO, payload: 'torrentUrl' });
-    expect(actual.url).toBe('torrentUrl');
+    const actual = playerReducer(state, { type: PlayerActions.PLAYER_GET_VIDEO, payload: 'https://example.com/' });
+    expect(actual.url).toBe('https://example.com/');
   });
 
   it('should set isBuffered', () => {
