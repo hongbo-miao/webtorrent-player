@@ -33,11 +33,12 @@ export class PlayerService {
   }
 
   updateInfo(): Observable<any> {
-    if (!this.torrent || this.torrent.downloadSpeed === undefined) return Observable.empty();
-    return Observable.of({
-      downloadSpeed: this.torrent.downloadSpeed,
-      uploadSpeed: this.torrent.uploadSpeed
-    });
+    if (!this.torrent) return Observable.of({ downloadSpeed: 0, uploadSpeed: 0 });
+
+    const downloadSpeed = !this.torrent.downloadSpeed ? 0 : this.torrent.downloadSpeed;
+    const uploadSpeed = !this.torrent.uploadSpeed ? 0 : this.torrent.uploadSpeed;
+
+    return Observable.of({ downloadSpeed, uploadSpeed });
   }
 
   updateProgress(): Observable<number> {
