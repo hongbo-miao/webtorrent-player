@@ -1,3 +1,7 @@
+import 'rxjs/add/operator/buffer';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
 import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 

@@ -1,3 +1,4 @@
+import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as WebTorrent from 'webtorrent';

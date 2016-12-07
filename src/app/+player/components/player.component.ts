@@ -1,3 +1,8 @@
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/observable/never';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+import '@ngrx/core/add/operator/select';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
